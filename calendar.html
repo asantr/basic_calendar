@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+   <html lang='en'>
+    <head>
+        <title>
+            JavaScript Calendar
+            
+        </title>
+        <script src="calendar_lib.js"></script>
+        <script src="calendar.js"></script>
+        <link rel="stylesheet" type="text/css" href="calendar_style.css" />
+          <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/start/jquery-ui.css" type="text/css" rel="Stylesheet" /> <!-- We need the style sheet linked
+          above or the dialogs/other parts of jquery-ui won't display correctly!-->
+         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script><!-- The main library. 
+         Note: must be listed before the jquery-ui library -->
+         <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js"></script><!-- jquery-UI 
+         hosted on Google's Ajax CDN-->
+         <script src="html5-simple-date-input-polyfill.min.js"></script>
+    </head>
+    <body >
+        <div class="top_bar">
+            <div class="center_top" >
+               <input  type="button" id="prev_month" value="<"/>
+               <b  id="month_display"></b>
+               <input type="button" id="next_month" value=">"/>
+               <input type="button" id="update_button" value="update"/>
+
+            </div>
+            <div class="right_top" >
+               <input type="button" id="login_button" value="Login"/>
+               <input type="button" id="register_button" value="Register New User"/>
+               <b id="user_b"></b>
+               <input type="button" id="logout_btn" value="Logout"/>
+            </div> 
+         </div>
+        <div class="main_page">
+            <div class="side_menu">
+               <strong id="cal_label"> Calendars </strong>
+                <div class="calendars">
+                </div>
+                <strong id="options_label"> Options </strong>
+                <div class="options">
+                     <input type="Submit" id="event_button" name="event_button" value="Create An Event" />
+                     <input type="Submit" id="calendar_button" name="calendar_button" value="Create An Calendar" />
+                     <input type="Submit" id="shared_calendar_button" name="shared_calendar_button" value="Create A Shared Calendar" />
+                </div>
+            </div>
+            <div class="main_calendar">
+               <div class="days">
+                  <table id="days">
+                     <tr>
+                          <td>Sunday</td> 
+                          <td>Monday</td> 
+                          <td>Tuesday</td> 
+                          <td>Wednesday</td> 
+                          <td>Thursday</td> 
+                          <td>Friday</td> 
+                          <td>Saturday</td>
+                     </tr>
+                  </table>
+                </div>
+               <div class="cal_view">
+                  <table id="cal_view">
+                      
+                  </table>
+                </div>
+            </div>
+        </div>
+        
+        
+<!--        POP UPS
+                  POP UPS
+                        POP UPS        -->
+<!--followed tutorial on : https://www.w3schools.com/howto/howto_css_modals.asp-->
+        <!-- The Modal -->
+      <div id="loginPopUp" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+          <span class="close">&times;</span>
+            <p> Please enter your credentials </p>
+            <p>
+                <label for="username_input">Username:</label>
+                <input type="text" name="username" id="username_input" />
+             </p>
+             <p>
+                <label for="password_input">Password:</label>
+                <input type="password" name="password" id="password_input" />
+             </p>
+      
+            <p>
+                 <input type="Submit" id="login_btn" name="login_user" value="Submit" />
+            </p>
+        </div>
+      </div>
+      
+      <div id="RegisterPopUp" class="modal">
+      
+        <!-- Modal content -->
+        <div class="modal-content">
+          <span class="close">&times;</span>
+            <p>
+                <label for="reg_username_input">Username:</label>
+                <input type="text" name="username" id="reg_username_input" />
+             </p>
+             <p>
+                <label for="reg_password_input">Password:</label>
+                <input type="password"  name="password" id="reg_password_input" />
+             </p>
+             <p>
+                <label for="password_input_confirm">Confirm Password:</label>
+                <input type="password" name="password_confirm" id="password_input_confirm" />
+             </p>
+      
+            <p>
+                 <input type="Submit" id="create_user" name="create_user" value="Submit" />
+            </p>
+        </div>
+      
+      </div>
+      
+      <div id="EventPopUp" class="modal">
+      
+        <!-- Modal content -->
+        <div class="modal-content">
+         <span class="close">&times;</span>
+         <p>
+            <label for="event_name_input">Name:</label>
+            <input type="text" id="event_name_input"/>
+         </p>
+         
+         <p id="event_add_place"></p>
+
+         <select id="calendar_options">
+            
+         </select>
+  
+        <p>
+             <input type="Submit" id="create_event" name="create_event" value="Submit" />
+             <input type="Submit" id="editEvent" name="edit_event" value="Submit" />
+             <input type="Submit" id="deleteEvent" name="delete_event" value="Delete" />
+        </p>
+        </div>
+      </div>
+       
+       
+      <div id="NewCalPopUp" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+          <span class="close">&times;</span>
+            <p> Create a New Calendar </p>
+            <p>
+                <label for="cal_name_input">Calendar Name:</label>
+                <input type="text" name="cal_name" id="cal_name_input" />
+             </p>
+            <p id="col_input_p"></p>
+            
+            <p id="cal_btn_p">
+                 <input type="Submit" id="new_cal_btn" name="new_cal" value="Create Calendar" />
+            </p>
+        </div>
+      </div>
+      
+      <div id="SharedCalPopUp" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+          <span class="close">&times;</span>
+            <p> Create a New Shared Calendar </p>
+            <p>
+                <label for="cal_name_input">Calendar Name:</label>
+                <input type="text" name="dhar_cal_name" id="share_cal_name_input" />
+             </p>
+            <p id="share_col_input_p"></p>
+            <select id="user_options">
+            
+            </select>
+            <p id="share_cal_btn_p">
+                 <input type="Submit" id="share_cal_btn" name="share_cal" value="Create Calendar" />
+            </p>
+        </div>
+      </div> 
+        
+    </body>
+
+   </html>
